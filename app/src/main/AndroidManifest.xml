@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.sd100testapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SD100TestApp">
+        <activity
+            android:name=".IndividualPouchWeightSummary_Activity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".LeakTestSummary_Activity"
+            android:exported="true" />
+        <activity
+            android:name=".MCSummary_Activity"
+            android:exported="true" />
+        <activity
+            android:name=".ICSummary_Activity"
+            android:exported="true" />
+        <activity
+            android:name=".RVSummary_Activity"
+            android:exported="true" />
+        <activity
+            android:name=".MachineID_Activity"
+            android:exported="true" />
+        <activity
+            android:name=".Overview_Activity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".Summary_Activity"
+            android:exported="true" />
+        <activity
+            android:name=".IndividualPouchWeight_Activity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".Leaktest_Activity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".MCBox_Activity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".ICBox_Activity"
+            android:exported="true" >
+
+        </activity>
+        <activity
+            android:name=".Strip_Activity"
+            android:configChanges="orientation"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".Dashboard_2Activity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".Dashboard_1Activity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

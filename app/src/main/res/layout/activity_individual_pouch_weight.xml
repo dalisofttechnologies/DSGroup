@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="end"
+    android:layout_marginEnd="10dp"
+    tools:context=".Strip_Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/IPWmcid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Machine ID"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/IPWskuid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="SKU"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/roundbackground3"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="Individual Pouch Wt"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="Variety/SKU"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+
+            <Spinner
+                android:id="@+id/IPWspinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"
+                tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Date"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/IPWDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="your hint here"
+            android:ems="10"
+            android:inputType="date"
+            android:minHeight="48dp"
+            android:text="" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Time"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/IPWTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="your hint here"
+            android:ems="10"
+            android:hint="15:21"
+            android:inputType="time"
+            android:minHeight="48dp"
+            android:text="" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Batch No."
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/IPWRollNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="your hint here"
+            android:ems="10"
+            android:hint="10"
+            android:inputType="number|textPersonName"
+            android:minHeight="48dp"
+            android:text="" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Strip Count"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ipwstripminus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:src="@mipmap/minus_button" />
+
+            <EditText
+                android:id="@+id/ipwstripcount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:text="1" />
+
+            <ImageView
+                android:id="@+id/ipwstripadd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:src="@mipmap/add_button" />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Strip Weight 1"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/IPWStripWt1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="your hint here"
+            android:ems="10"
+            android:hint="100"
+            android:inputType="text|numberDecimal"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Strip Weight 2"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/IPWStripWt2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="your hint here"
+            android:ems="10"
+            android:hint="100"
+            android:inputType="text|numberDecimal"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Strip Weight 3"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/IPWStripWt3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="your hint here"
+            android:ems="10"
+            android:hint="100"
+            android:inputType="text|numberDecimal"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Strip Weight 4"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/IPWStripWt4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="your hint here"
+            android:ems="10"
+            android:hint="100"
+            android:inputType="text|numberDecimal"
+            android:minHeight="48dp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/deletePouch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:src="@mipmap/minus_button" />
+
+            <ImageView
+                android:id="@+id/addPouch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:src="@mipmap/add_button" />
+
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pouchRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Shift"
+                android:textSize="22sp"
+                tools:ignore="HardcodedText" />
+
+            <Spinner
+                android:id="@+id/IPWShift"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/Individualnextbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="250dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="#afd19f"
+            android:text="Next" />
+    </LinearLayout>
+
+</ScrollView>

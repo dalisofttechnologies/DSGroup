@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/SD100TestApp/app/src/main/res/drawable/Logo_background.xml" value="0.24114583333333334" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/drawable/textviewbg.xml" value="0.24114583333333334" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_dashboard1.xml" value="0.11041666666666666" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_dashboard2.xml" value="0.225" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_icbox.xml" value="0.225" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_icsummary.xml" value="0.225" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_individual_pouch_weight.xml" value="0.25" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_individual_pouch_weight_summary.xml" value="0.225" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_leak_test_summary.xml" value="0.225" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_leaktest.xml" value="0.225" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_machine_id.xml" value="0.225" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_main.xml" value="0.225" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_mcbox.xml" value="0.225" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_mcsummary.xml" value="0.225" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_overview.xml" value="0.225" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_strip.xml" value="0.22153846153846155" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_summary.xml" value="0.225" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/striplist_item.xml" value="0.225" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/striplistsum_item.xml" value="0.11197916666666667" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/txtlist_item.xml" value="0.225" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/mipmap-anydpi-v26/Logo_round.xml" value="0.24114583333333334" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
