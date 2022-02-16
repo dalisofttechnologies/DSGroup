@@ -53,17 +53,18 @@ public class MCBox_Activity extends AppCompatActivity implements AdapterView.OnI
         WtRangeMax = findViewById(R.id.mcmax);
         MCID = findViewById(R.id.mcmcid);
         SKUID = findViewById(R.id.mcskuid);
-        MCID.setText(com.example.sd100testapp.DataHolder.getInstance().getData2());
+        String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
+        MCID.setText(machineidvalue);
 
-        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 2);
-        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 3);
+        String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
+        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "'AND MachineSLN = '"+ machineidvalue +"'", 2);
+        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "'AND MachineSLN = '"+ machineidvalue +"'", 3);
         String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
         SKUID.setText(productVariant);
-        String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
         MCBatchNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 and ProdDate = CAST('"+timeStamp+"' as date)", 8));
-        WtRangeMin.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC ORDER BY Stamp DESC", 7));
-        WtRangeStd.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC ORDER BY Stamp DESC", 8));
-        WtRangeMax.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC ORDER BY Stamp DESC", 9));
+        WtRangeMin.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC ORDER BY ProdDate DESC", 7));
+        WtRangeStd.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC ORDER BY ProdDate DESC", 8));
+        WtRangeMax.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC ORDER BY ProdDate DESC", 9));
 
         navigate11.setOnClickListener(new View.OnClickListener() {
             @Override

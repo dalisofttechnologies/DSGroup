@@ -65,15 +65,15 @@ public class Strip_Activity extends AppCompatActivity implements AdapterView.OnI
 
         String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
         MCID.setText(machineidvalue);
-        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 2);
-        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 3);
+        String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
+        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 2);
+        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 3);
         String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
         SKUID.setText(productVariant);
-        String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
-        BatchNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 and ProdDate = CAST('"+timeStamp+"' as date)", 8));
-        WtRangeMin.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAStrip ORDER BY Stamp DESC", 6));
-        WtRangeStd.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAStrip ORDER BY Stamp DESC", 7));
-        WtRangeMax.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAStrip ORDER BY Stamp DESC", 8));
+        BatchNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 and ProdDate = CAST('" + timeStamp + "' as date)", 8));
+        WtRangeMin.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAStrip ORDER BY ProdDate DESC", 6));
+        WtRangeStd.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAStrip ORDER BY ProdDate DESC", 7));
+        WtRangeMax.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAStrip ORDER BY ProdDate DESC", 8));
 
 
         navigate14.setOnClickListener(view -> {
@@ -132,9 +132,9 @@ public class Strip_Activity extends AppCompatActivity implements AdapterView.OnI
             intent.putExtra("WtRangeMinValue", WtRangeMinValue);
             intent.putExtra("WtRangeStdValue", WtRangeStdValue);
             intent.putExtra("WtRangeMaxValue", WtRangeMaxValue);
-            intent.putExtra("StripShiftValue",stripshiftvalue);
-            intent.putExtra("ProductCode",productCode);
-            intent.putExtra("ProductStockType",stockType);
+            intent.putExtra("StripShiftValue", stripshiftvalue);
+            intent.putExtra("ProductCode", productCode);
+            intent.putExtra("ProductStockType", stockType);
             startActivity(intent);
 
         });
@@ -185,9 +185,9 @@ public class Strip_Activity extends AppCompatActivity implements AdapterView.OnI
                 Log.e("Here", ex.toString());
 
             }
-            String[] countOfStrip = DatabaseCall.getData().FetchArray("Select * from ProductVariant",11);
-            float count  = Float.parseFloat(NewArr.get(pos)) / Float.parseFloat(countOfStrip[pos]);
-            CountPerStrip.setText(String.valueOf((int)count));
+            String[] countOfStrip = DatabaseCall.getData().FetchArray("Select * from ProductVariant", 11);
+            float count = Float.parseFloat(NewArr.get(pos)) / Float.parseFloat(countOfStrip[pos]);
+            CountPerStrip.setText(String.valueOf((int) count));
 
             try {
                 ConnectionHelper connectionHelper = new ConnectionHelper();

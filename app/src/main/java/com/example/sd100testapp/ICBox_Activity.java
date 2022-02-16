@@ -54,18 +54,18 @@ public class ICBox_Activity extends AppCompatActivity implements AdapterView.OnI
         icstd = findViewById(R.id.icstd);
         icmax = findViewById(R.id.icmax);
 
-        MCID.setText(com.example.sd100testapp.DataHolder.getInstance().getData2());
+        String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
+        MCID.setText(machineidvalue);
         String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
         icbatchno.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 and ProdDate = CAST('"+timeStamp+"' as date)", 11));
         Log.e("Here",icbatchno.toString()); 
-        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 2);
-        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 3);
+        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 2);
+        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 3);
         String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
         SKUID.setText(productVariant);
-
-        icmin.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAIC ORDER BY Stamp DESC", 7));
-        icstd.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAIC ORDER BY Stamp DESC", 8));
-        icmax.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAIC ORDER BY Stamp DESC", 9));
+        icmin.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAIC ORDER BY ProdDate DESC", 7));
+        icstd.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAIC ORDER BY ProdDate DESC", 8));
+        icmax.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAIC ORDER BY ProdDate DESC", 9));
 
 
         navigate8.setOnClickListener(new View.OnClickListener() {

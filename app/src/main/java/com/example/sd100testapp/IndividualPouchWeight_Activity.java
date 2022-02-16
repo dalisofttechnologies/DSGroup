@@ -71,10 +71,14 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
         String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
         IPWRollNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 and ProdDate = CAST('"+timeStamp+"' as date)", 8));
         MCID = findViewById(R.id.IPWmcid);
-        MCID.setText(com.example.sd100testapp.DataHolder.getInstance().getData2());
+
+        String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
+        MCID.setText(machineidvalue);
         SKUID = findViewById(R.id.IPWskuid);
-        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 2);
-        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 3);
+
+
+        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 2);
+        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 3);
         String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
         SKUID.setText(productVariant);
         //add delete button recyclerview

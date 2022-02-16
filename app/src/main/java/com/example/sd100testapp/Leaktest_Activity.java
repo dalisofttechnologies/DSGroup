@@ -59,8 +59,12 @@ public class Leaktest_Activity extends AppCompatActivity implements AdapterView.
         SKUID = findViewById(R.id.leaktestskuid);
         MCID = findViewById(R.id.leaktestmcid);
 
-        String productCode = DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 2);
-        String stockType = DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 3);
+
+        String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
+
+        String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
+        String productCode = DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 2);
+        String stockType = DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 3);
         String productVariant = DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
         SKUID.setText(productVariant);
         MCID.setText("");
