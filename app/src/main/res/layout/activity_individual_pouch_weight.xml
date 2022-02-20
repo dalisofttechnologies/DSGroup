@@ -137,7 +137,7 @@
             android:autofillHints="your hint here"
             android:ems="10"
             android:hint="10"
-            android:inputType="number|textPersonName"
+            android:inputType="textPersonName"
             android:minHeight="48dp"
             android:text="" />
 

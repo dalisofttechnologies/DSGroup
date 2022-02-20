@@ -30,7 +30,7 @@ public class Leaktest_Activity extends AppCompatActivity implements AdapterView.
     TextView MCID, SKUID;
     String Spinner2 = "", Spinner3 = "", LeakTestShift = "";
     Switch LeakTestTopSeal, LeakTestSideSeal, LeakTestDelamination, LeakTestWrinkle, LeakTestOffRegistration, LeakTestLining;
-    EditText LeakTestDate, LeakTestTime, LeakTestTemp, LeakTestRh, LeakTestStripWt, LeakTestNoEmpty, LeakTestSampleSize, LeakTestNoLeak, LeakTestNoOfStrips, LeakTestStripWt1, LeakTestStripWt2, LeakTestStripWt3, LeakTestStripWt4;
+    EditText LeakTestDate, LeakTestTime, LeakTestTemp, LeakTestRh, LeakTestStripWt, LeakTestNoEmpty, LeakTestSampleSize, LeakTestNoLeak, LeakTestNoOfStrips, LeakTestStripWt1, LeakTestStripWt2, LeakTestStripWt3, LeakTestStripWt4, LeakTestBatchNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class Leaktest_Activity extends AppCompatActivity implements AdapterView.
         setContentView(R.layout.activity_leaktest);
 
         navigate10 = findViewById(R.id.leaktestnextbtn);
-
+        LeakTestBatchNo = findViewById(R.id.leaktestbatchno);
         LeakTestDate = findViewById(R.id.leaktestdate);
         LeakTestTime = findViewById(R.id.leaktesttime);
         LeakTestTemp = findViewById(R.id.leaktesttemp);
@@ -63,8 +63,8 @@ public class Leaktest_Activity extends AppCompatActivity implements AdapterView.
         String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
 
         String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
-        String productCode = DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 2);
-        String stockType = DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 3);
+        String productCode = DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 2);
+        String stockType = DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 3);
         String productVariant = DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
         SKUID.setText(productVariant);
         MCID.setText("");
@@ -72,6 +72,7 @@ public class Leaktest_Activity extends AppCompatActivity implements AdapterView.
         navigate10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String LeakTestBatchNoValue = LeakTestBatchNo.getText().toString();
                 String LeakTestDateValue = LeakTestDate.getText().toString();
                 String LeakTestTimeValue = LeakTestTime.getText().toString();
                 String LeakTestTempValue = LeakTestTemp.getText().toString();
@@ -83,7 +84,7 @@ public class Leaktest_Activity extends AppCompatActivity implements AdapterView.
                 String LeakTestStripWt2Value = LeakTestStripWt2.getText().toString();
                 String LeakTestStripWt3Value = LeakTestStripWt3.getText().toString();
                 String LeakTestStripWt4Value = LeakTestStripWt4.getText().toString();
-                if (LeakTestTempValue.matches("") || LeakTestRhValue.matches("") || LeakTestNoEmptyValue.matches("") || LeakTestSampleSizeValue.matches("") || LeakTestNoLeakValue.matches("")) {
+                if (LeakTestTempValue.matches("") || LeakTestRhValue.matches("") || LeakTestNoEmptyValue.matches("") || LeakTestSampleSizeValue.matches("") || LeakTestNoLeakValue.matches("") || LeakTestBatchNoValue.matches("")) {
                     Toast.makeText(getApplicationContext(), "Please fill all entries", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -95,6 +96,7 @@ public class Leaktest_Activity extends AppCompatActivity implements AdapterView.
                 Boolean LeakTestLiningValue = LeakTestLining.isChecked();
 
                 Intent intent = new Intent(Leaktest_Activity.this, LeakTestSummary_Activity.class);
+                intent.putExtra("LeakTestBatchNo", LeakTestBatchNoValue);
                 intent.putExtra("LeakTestDate", LeakTestDateValue);
                 intent.putExtra("LeakTestTime", LeakTestTimeValue);
                 intent.putExtra("LeakTestTemp", LeakTestTempValue);

@@ -17,13 +17,13 @@ public class ConnectionHelper {
         //192.168.1.247
         //192.168.0.102
         //172.168.1.200
-        ip = "172.168.1.200";
-        database = "DS";
+        ip = "192.168.88.103";
+        database = "DS6";
         port = "1433";
-//        uname = "Shubh";
-//        pass = "123456";
-        uname = "admin";
-        pass = "ds@123";
+        uname = "Shubh";
+        pass = "123456";
+//        uname = "admin";
+//        pass = "ds@123";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Connection connection = null;
