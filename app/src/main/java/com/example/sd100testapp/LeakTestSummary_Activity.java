@@ -36,7 +36,6 @@ public class LeakTestSummary_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_leak_test_summary);
 
         Leaktestsubmit = findViewById(R.id.leaktestnextbtnsum);
-        LeakTestBatchNoValue = findViewById(R.id.leaktestbatchnosum);
         LeakTestDateValue = findViewById(R.id.leaktestdatesum);
         LeakTestShiftValue = findViewById(R.id.leaktestshiftsum);
         LeakTestTimeValue = findViewById(R.id.leaktesttimesum);
@@ -67,7 +66,6 @@ public class LeakTestSummary_Activity extends AppCompatActivity {
         String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
         SKUID.setText(productVariant);
 
-        String LeakTestBatchNo = getIntent().getStringExtra("LeakTestBatchNo");
         String LeakTestDate = getIntent().getStringExtra("LeakTestDate");
         String LeakTestShift = getIntent().getStringExtra("LeakTestShift");
         String LeakTestTime = getIntent().getStringExtra("LeakTestTime");
@@ -93,7 +91,6 @@ public class LeakTestSummary_Activity extends AppCompatActivity {
         String ProductStockType = getIntent().getStringExtra("ProductStockType");
 
 
-        LeakTestBatchNoValue.setText(LeakTestBatchNo);
         LeakTestDateValue.setText(LeakTestDate);
         LeakTestShiftValue.setText(LeakTestShift);
         LeakTestTimeValue.setText(LeakTestTime);

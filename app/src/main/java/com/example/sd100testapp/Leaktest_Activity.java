@@ -38,7 +38,6 @@ public class Leaktest_Activity extends AppCompatActivity implements AdapterView.
         setContentView(R.layout.activity_leaktest);
 
         navigate10 = findViewById(R.id.leaktestnextbtn);
-        LeakTestBatchNo = findViewById(R.id.leaktestbatchno);
         LeakTestDate = findViewById(R.id.leaktestdate);
         LeakTestTime = findViewById(R.id.leaktesttime);
         LeakTestTemp = findViewById(R.id.leaktesttemp);
@@ -72,7 +71,6 @@ public class Leaktest_Activity extends AppCompatActivity implements AdapterView.
         navigate10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String LeakTestBatchNoValue = LeakTestBatchNo.getText().toString();
                 String LeakTestDateValue = LeakTestDate.getText().toString();
                 String LeakTestTimeValue = LeakTestTime.getText().toString();
                 String LeakTestTempValue = LeakTestTemp.getText().toString();
@@ -84,7 +82,7 @@ public class Leaktest_Activity extends AppCompatActivity implements AdapterView.
                 String LeakTestStripWt2Value = LeakTestStripWt2.getText().toString();
                 String LeakTestStripWt3Value = LeakTestStripWt3.getText().toString();
                 String LeakTestStripWt4Value = LeakTestStripWt4.getText().toString();
-                if (LeakTestTempValue.matches("") || LeakTestRhValue.matches("") || LeakTestNoEmptyValue.matches("") || LeakTestSampleSizeValue.matches("") || LeakTestNoLeakValue.matches("") || LeakTestBatchNoValue.matches("")) {
+                if (LeakTestTempValue.matches("") || LeakTestRhValue.matches("") || LeakTestNoEmptyValue.matches("") || LeakTestSampleSizeValue.matches("") || LeakTestNoLeakValue.matches("")) {
                     Toast.makeText(getApplicationContext(), "Please fill all entries", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -96,7 +94,6 @@ public class Leaktest_Activity extends AppCompatActivity implements AdapterView.
                 Boolean LeakTestLiningValue = LeakTestLining.isChecked();
 
                 Intent intent = new Intent(Leaktest_Activity.this, LeakTestSummary_Activity.class);
-                intent.putExtra("LeakTestBatchNo", LeakTestBatchNoValue);
                 intent.putExtra("LeakTestDate", LeakTestDateValue);
                 intent.putExtra("LeakTestTime", LeakTestTimeValue);
                 intent.putExtra("LeakTestTemp", LeakTestTempValue);

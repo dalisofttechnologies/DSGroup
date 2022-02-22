@@ -61,7 +61,7 @@ public class MCBox_Activity extends AppCompatActivity implements AdapterView.OnI
         String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "'AND MachineSLN = '"+ machineidvalue +"'", 3);
         String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
         SKUID.setText(productVariant);
-        MCBatchNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 and ProdDate = CAST('"+timeStamp+"' as date)", 8));
+        MCBatchNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 and ProdDate = CAST('"+timeStamp+"' as date) AND MachineSLN = '"+ machineidvalue +"'", 8));
         WtRangeMin.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC ORDER BY ProdDate DESC", 7));
         WtRangeStd.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC ORDER BY ProdDate DESC", 8));
         WtRangeMax.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC ORDER BY ProdDate DESC", 9));

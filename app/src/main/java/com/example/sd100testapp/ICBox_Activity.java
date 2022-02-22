@@ -57,7 +57,7 @@ public class ICBox_Activity extends AppCompatActivity implements AdapterView.OnI
         String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
         MCID.setText(machineidvalue);
         String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
-        icbatchno.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 and ProdDate = CAST('"+timeStamp+"' as date)", 11));
+        icbatchno.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 and ProdDate = CAST('"+timeStamp+"' as date) AND MachineSLN = '"+ machineidvalue +"'", 11));
         Log.e("Here",icbatchno.toString()); 
         String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 2);
         String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 3);
