@@ -55,7 +55,8 @@ public class MachineID_Activity extends AppCompatActivity {
             connect = connectionHelper.connectionclass();
 
             if (connect != null) {
-                String query = "Select * from MachineID";
+                String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
+                String query = "SELECT DISTINCT MachineSLN FROM BatchExecution WHERE ProdDate = '" + timeStamp + "'";
                 Statement st = connect.createStatement();
                 ResultSet rs = st.executeQuery(query);
 

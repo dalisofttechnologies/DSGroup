@@ -26,7 +26,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+        <Spinner
             android:id="@+id/machinespinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -170,6 +170,7 @@ public class ICBox_Activity extends AppCompatActivity implements AdapterView.OnI
             } catch (Exception ex) {
                 Log.e("Here", ex.toString());
             }
+            Log.e("Here", String.valueOf(NewArr));
             iccountperstrip.setText(NewArr.get(pos));
             if (parent.getId() == R.id.spinneric) {
                 String text = parent.getItemAtPosition(pos).toString();

@@ -86,8 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 if (rs2.next()) {
                                     Toast.makeText(getApplicationContext(), "Wrong password", Toast.LENGTH_SHORT).show();
-                                }
-                                else{
+                                } else {
                                     Toast.makeText(getApplicationContext(), "Incorrect Credentials", Toast.LENGTH_SHORT).show();
                                 }
                             } catch (SQLException throwables) {
@@ -99,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception ex) {
-                    Log.e("Here",ex.toString());
+                    Log.e("Here", ex.toString());
                 }
             }
         });
