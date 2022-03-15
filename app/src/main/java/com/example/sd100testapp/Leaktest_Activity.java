@@ -67,6 +67,7 @@ public class Leaktest_Activity extends AppCompatActivity implements AdapterView.
         String productVariant = DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
         SKUID.setText(productVariant);
         MCID.setText("");
+        LeakTestNoLeak.setTransformationMethod(null);
 
         navigate10.setOnClickListener(new View.OnClickListener() {
             @Override
