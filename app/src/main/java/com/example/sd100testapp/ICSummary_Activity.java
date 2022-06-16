@@ -48,6 +48,7 @@ public class ICSummary_Activity extends AppCompatActivity {
         String Shift = getIntent().getStringExtra("icshiftvalue");
         String ProductCode = getIntent().getStringExtra("productCode");
         String productStockType = getIntent().getStringExtra("productStockType");
+        String product = getIntent().getStringExtra("product");
         Boolean icmfgaddress = getIntent().getBooleanExtra("icmfgaddress", false);
         Boolean ictaping = getIntent().getBooleanExtra("ictaping", false);
         Boolean ictextmatter = getIntent().getBooleanExtra("ictextmatter", false);
@@ -100,15 +101,16 @@ public class ICSummary_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//
+                String currentTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault()).format(new Date());
+
+
 //                //IcBox Data insert in SQL server
                 try {
                     ConnectionHelper connectionHelper = new ConnectionHelper();
                     connect = connectionHelper.connectionclass();
-                    connect = connectionHelper.connectionclass();
                     String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate",1);
                     if (connect != null) {
-                        String sqlinsert = "Insert into QAIC values ('" + timeStamp + "','" + icbatchnovalue.getText().toString() + "','" + iccountperstripvalue.getText().toString() + "','" + icwtperfilledboxvalue.getText().toString() + "','" + icmrpvalue.getText().toString() + "','" + icwtperemptyboxvalue.getText().toString() + "','" + WtRangeMinValue.getText().toString() + "','" + WtRangeStdValue.getText().toString() + "','" + WtRangeMaxValue.getText().toString() + "','" + icshiftvalue.getText().toString() +"','" + icmfgaddress + "','" + ictaping + "','" + ictextmatter + "','" + icpacking + "','" + icinspectedsum.getText().toString() + "','" + iccheckedsum.getText().toString() + "','" + machineidvalue +"','" + productCode +"','" + productStockType + "')";
+                        String sqlinsert = "Insert into QAIC values ('" + timeStamp + "','" + icbatchnovalue.getText().toString() + "','" + iccountperstripvalue.getText().toString() + "','" + icwtperfilledboxvalue.getText().toString() + "','" + icmrpvalue.getText().toString() + "','" + icwtperemptyboxvalue.getText().toString() + "','" + WtRangeMinValue.getText().toString() + "','" + WtRangeStdValue.getText().toString() + "','" + WtRangeMaxValue.getText().toString() + "','" + icshiftvalue.getText().toString() +"','" + icmfgaddress + "','" + ictaping + "','" + ictextmatter + "','" + icpacking + "','" + icinspectedsum.getText().toString() + "','" + iccheckedsum.getText().toString() + "','" + machineidvalue +"','" + product +"','" + product +"','" + currentTime + "')";
                         Statement st = connect.createStatement();
                         ResultSet rs = st.executeQuery(sqlinsert);
 

@@ -15,7 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class MachineID_Activity extends AppCompatActivity {
 
@@ -48,15 +54,35 @@ public class MachineID_Activity extends AppCompatActivity {
 
         //Add number is ArrayList
         numberList.add("Select Machine SLN");
+        String timeStamp2 = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
+
+        //Getting previous date also now
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        String outputText = "";
+        Date date = null;
+
+        try {
+            date = inputFormat.parse(timeStamp2);
+            Calendar c = Calendar.getInstance();
+            c.setTime(date);
+            c.add(Calendar.DATE, -1);
+            Date currentDatePlusOne = c.getTime();
+            outputText = inputFormat.format(currentDatePlusOne);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
 
         //Get the data from Sql Server to be filled in the ArrayList
         try {
             ConnectionHelper connectionHelper = new ConnectionHelper();
             connect = connectionHelper.connectionclass();
 
+
             if (connect != null) {
                 String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
-                String query = "SELECT DISTINCT MachineSLN FROM BatchExecution WHERE ProdDate = '" + timeStamp + "'";
+                String query = "SELECT DISTINCT MachineSLN FROM BatchExecution WHERE ProdDate = '" + timeStamp + "' OR ProdDate = '" + outputText + "'";
                 Statement st = connect.createStatement();
                 ResultSet rs = st.executeQuery(query);
 

@@ -60,14 +60,22 @@ public class MCBox_Activity extends AppCompatActivity implements AdapterView.OnI
 
         //Select TOP(1)* from BatchExecution WHERE ProdDate ='2022-03-04' and MachineSLN='160724595' order by Timestamp desc
         String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
-        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "'AND MachineSLN = '"+ machineidvalue +"'", 2);
-        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "'AND MachineSLN = '"+ machineidvalue +"'", 3);
-        String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
+//        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "'AND MachineSLN = '"+ machineidvalue +"'", 2);
+//        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "'AND MachineSLN = '"+ machineidvalue +"'", 3);
+        String Product = DatabaseCall.getData().FetchData("select Product from ProductionPlan where Status =1  and ProdDate=dbo.getProdDateFunction(getdate()) and MachineSLN='"+machineidvalue+"'", 1);
+
+        String productVariant = "";
         SKUID.setText(productVariant);
-        MCBatchNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 and ProdDate = CAST('"+timeStamp+"' as date) AND MachineSLN = '"+ machineidvalue +"'", 11  ));
-        WtRangeMin.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC ORDER BY ProdDate DESC", 7));
-        WtRangeStd.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC ORDER BY ProdDate DESC", 8));
-        WtRangeMax.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC ORDER BY ProdDate DESC", 9));
+        if (Product.length() == 0) {
+            Toast.makeText(MCBox_Activity.this, "Running Machine Not Planned", Toast.LENGTH_LONG).show();
+        } else {
+            productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("select Description from ProductVariant where( ProductCode+'-'+ProductStockType)= '"+Product+"'", 1);
+            SKUID.setText(productVariant);
+        }
+        MCBatchNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select top (1)* from BatchExecution WHERE  MachineSLN = '" + machineidvalue + "' and Status = 1 order by Timestamp desc", 11));
+        WtRangeMin.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC where MachineSLN = '"+machineidvalue+"'  ORDER BY Stamp DESC", 7));
+        WtRangeStd.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC where MachineSLN = '"+machineidvalue+"'  ORDER BY Stamp DESC", 8));
+        WtRangeMax.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC where MachineSLN = '"+machineidvalue+"'  ORDER BY Stamp DESC", 9));
 
         navigate11.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,8 +125,9 @@ public class MCBox_Activity extends AppCompatActivity implements AdapterView.OnI
                 intent.putExtra("WtRangeStd", WtRangeStdValue);
                 intent.putExtra("WtRangeMax", WtRangeMaxValue);
                 intent.putExtra("mcshiftvalue", mcshiftvalue);
-                intent.putExtra("ProductCode", productCode);
-                intent.putExtra("ProductStockType", stockType);
+                intent.putExtra("ProductCode", "productCode");
+                intent.putExtra("ProductStockType", "stockType");
+                intent.putExtra("Product", Product);
                 startActivity(intent);
             }
         });
@@ -162,7 +171,6 @@ public class MCBox_Activity extends AppCompatActivity implements AdapterView.OnI
 
             ArrayList<String> NewArr = new ArrayList<String>();
             ArrayList<String> NewArrNetwtdeclaration = new ArrayList<String>();
-
             try {
                 ConnectionHelper connectionHelper = new ConnectionHelper();
                 connect = connectionHelper.connectionclass();
@@ -180,6 +188,9 @@ public class MCBox_Activity extends AppCompatActivity implements AdapterView.OnI
             } catch (Exception ex) {
                 Log.e("Here", ex.toString());
 
+            }
+            if(pos==NewArr.size()){
+                NewArr.add("");
             }
             MCICPerMC.setText(NewArr.get(pos));
 
@@ -200,6 +211,9 @@ public class MCBox_Activity extends AppCompatActivity implements AdapterView.OnI
             } catch (Exception ex) {
                 Log.e("Here", ex.toString());
 
+            }
+            if(pos==NewArrNetwtdeclaration.size()){
+                NewArrNetwtdeclaration.add("");
             }
             MCNetWt.setText(NewArrNetwtdeclaration.get(pos));
         }

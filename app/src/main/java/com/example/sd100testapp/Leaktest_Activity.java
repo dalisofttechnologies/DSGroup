@@ -64,8 +64,14 @@ public class Leaktest_Activity extends AppCompatActivity implements AdapterView.
         String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
         String productCode = DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 2);
         String stockType = DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 3);
-        String productVariant = DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
+        String productVariant = "";
         SKUID.setText(productVariant);
+        if (productCode.length() == 0 || stockType.length() == 0) {
+            Toast.makeText(Leaktest_Activity.this, "Running Machine Not Planned", Toast.LENGTH_LONG).show();
+        } else {
+            productVariant = DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
+            SKUID.setText(productVariant);
+        }
         MCID.setText("");
         LeakTestNoLeak.setTransformationMethod(null);
 

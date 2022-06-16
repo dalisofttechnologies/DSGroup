@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Summary_Activity extends AppCompatActivity {
     Connection connect;
@@ -43,6 +44,7 @@ public class Summary_Activity extends AppCompatActivity {
         String MachineIDValue = DataHolder.getInstance().getData2();
         String ProductCode = getIntent().getStringExtra("ProductCode");
         String ProductStockType = getIntent().getStringExtra("ProductStockType");
+        String Product = getIntent().getStringExtra("Product");
         Boolean SilverLumps = getIntent().getBooleanExtra("SilverLumps", false);
         Boolean MfgAddress = getIntent().getBooleanExtra("MfgAddress", false);
         Boolean PouchSize = getIntent().getBooleanExtra("PouchSize", false);
@@ -99,9 +101,11 @@ public class Summary_Activity extends AppCompatActivity {
         ShiftValue.setText(Shift);
         StripInspectedSum.setText(DataHolder.getInstance().getData());
         MCIDSUM.setText(DataHolder.getInstance().getData2());
-        String productCode = DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 2);
-        String stockType = DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 3);
-        String productVariant = DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
+        String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
+        String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
+        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 2);
+        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 3);
+        String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
         SKUIDSUM.setText(productVariant);
         navigate13 = findViewById(R.id.stripsummarynextbtn);
 
@@ -109,18 +113,17 @@ public class Summary_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(Summary_Activity.this, Overview_Activity.class);
-                startActivity(intent);
+                String currentTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault()).format(new Date());
+
 
                 //StipQuality Data insert in SQL server
-
                 try {
                     ConnectionHelper connectionHelper = new ConnectionHelper();
                     connect = connectionHelper.connectionclass();
                     String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate",1);
                     Log.e("here",timeStamp);
                     if (connect != null) {
-                        String sqlinsert = "Insert into QAStrip values ('" + timeStamp + "','" + BatchNoValue.getText().toString() + "','" + CountPerStripValue.getText().toString() + "','" + NetWtPerPouchValue.getText().toString() + "','" + StripWtValue.getText().toString() + "','" + WtRangeMinValue.getText().toString() + "','" + WtRangeStdValue.getText().toString() + "','" + WtRangeMaxValue.getText().toString() + "','" + ShiftValue.getText().toString() +"','" + SilverLumps + "','" + MfgAddress + "','" + PouchSize + "','" + Cutting + "','" + Perforation + "','" + Delamination + "','" + Offregistration + "','" + Lining + "','" + Wrinkle + "','" + PouchTear + "','" + StripInspectedSum.getText().toString() + "','" + StripCheckedSum.getText().toString() + "','" + MachineIDValue +"','" + ProductCode +"','" + ProductStockType + "')";
+                        String sqlinsert = "Insert into QAStrip values ('" + timeStamp + "','" + BatchNoValue.getText().toString() + "','" + CountPerStripValue.getText().toString() + "','" + NetWtPerPouchValue.getText().toString() + "','" + StripWtValue.getText().toString() + "','" + WtRangeMinValue.getText().toString() + "','" + WtRangeStdValue.getText().toString() + "','" + WtRangeMaxValue.getText().toString() + "','" + ShiftValue.getText().toString() +"','" + SilverLumps + "','" + MfgAddress + "','" + PouchSize + "','" + Cutting + "','" + Perforation + "','" + Delamination + "','" + Offregistration + "','" + Lining + "','" + Wrinkle + "','" + PouchTear + "','" + StripInspectedSum.getText().toString() + "','" + StripCheckedSum.getText().toString() + "','" + MachineIDValue +"','" + Product +"','" + Product +"','" + currentTime + "')";
                         Statement st = connect.createStatement();
                         ResultSet rs = st.executeQuery(sqlinsert);
 
@@ -130,6 +133,11 @@ public class Summary_Activity extends AppCompatActivity {
                 } catch (Exception ex) {
                     Log.e("Here", ex.toString());
                 }
+
+                Intent intent = new Intent(Summary_Activity.this, Overview_Activity.class);
+                startActivity(intent);
+
+
 
             }
         });

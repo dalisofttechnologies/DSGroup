@@ -11,11 +11,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import net.sourceforge.jtds.jdbc.DateTime;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class MCSummary_Activity extends AppCompatActivity {
     Connection connect;
@@ -41,6 +44,7 @@ public class MCSummary_Activity extends AppCompatActivity {
         String WtRangeMax = getIntent().getStringExtra("WtRangeMax");
         String ProductCode = getIntent().getStringExtra("ProductCode");
         String ProductStockType = getIntent().getStringExtra("ProductStockType");
+        String Product = getIntent().getStringExtra("Product");
         Boolean MCMfgAddress = getIntent().getBooleanExtra("MCMfgAddress", false);
         Boolean MCCutting = getIntent().getBooleanExtra("MCCutting", false);
         Boolean MCPerforation = getIntent().getBooleanExtra("MCPerforation", false);
@@ -98,9 +102,10 @@ public class MCSummary_Activity extends AppCompatActivity {
         MCSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("Here", "Here");
-                Intent intent = new Intent(MCSummary_Activity.this, com.example.sd100testapp.Overview_Activity.class);
-                startActivity(intent);
+
+                //set Time Automatically
+                String currentTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault()).format(new Date());
+
                 //IcBox Data insert in SQL server
                 try {
                     ConnectionHelper connectionHelper = new ConnectionHelper();
@@ -108,7 +113,7 @@ public class MCSummary_Activity extends AppCompatActivity {
                     String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate",1);
                     if (connect != null) {
                         Log.e("Here", "here");
-                        String sqlinsert = "Insert into QAMC values ('" + timeStamp + "','" + MCBatchNoValue.getText().toString() + "','" + MCICPerMCValue.getText().toString() + "','" + MCNetWtValue.getText().toString() + "','" + MCGrossWtValue.getText().toString() + "','" + MCShiftValue.getText().toString() +"','" + WtRangeMinValue.getText().toString() +"','" + WtRangeStdValue.getText().toString() +"','" + WtRangeMaxValue.getText().toString() + "','" + MCMfgAddress + "','" + MCWrinkle + "','" + MCBubble + "','" + MCCracking +  "','" + MCCreasing + "','" + MCTaping + "','" + MCTextMatter + "','" + MCInspectedBy.getText().toString() + "','" + MCCheckedBy.getText().toString() +  "','" + MachineIdValue +"','" + ProductCode +"','" + ProductStockType + "')";
+                        String sqlinsert = "Insert into QAMC values ('" + timeStamp + "','" + MCBatchNoValue.getText().toString() + "','" + MCICPerMCValue.getText().toString() + "','" + MCNetWtValue.getText().toString() + "','" + MCGrossWtValue.getText().toString() + "','" + MCShiftValue.getText().toString() +"','" + WtRangeMinValue.getText().toString() +"','" + WtRangeStdValue.getText().toString() +"','" + WtRangeMaxValue.getText().toString() + "','" + MCMfgAddress + "','" + MCWrinkle + "','" + MCBubble + "','" + MCCracking +  "','" + MCCreasing + "','" + MCTaping + "','" + MCTextMatter + "','" + MCInspectedBy.getText().toString() + "','" + MCCheckedBy.getText().toString() +  "','" + MachineIdValue +"','" + Product +"','" + Product +"','" + currentTime + "')";
                         Statement st = connect.createStatement();
                         ResultSet rs = st.executeQuery(sqlinsert);
                         Log.e("Here", "Success");
@@ -118,6 +123,9 @@ public class MCSummary_Activity extends AppCompatActivity {
                 } catch (Exception ex) {
                     Log.e("Here", ex.toString());
                 }
+
+                Intent intent = new Intent(MCSummary_Activity.this, com.example.sd100testapp.Overview_Activity.class);
+                startActivity(intent);
 
             }
         });

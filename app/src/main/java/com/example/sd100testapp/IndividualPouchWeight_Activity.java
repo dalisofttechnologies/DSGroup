@@ -42,7 +42,7 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
     TextView MCID, SKUID;
     String IPWShift = "";
     ImageView addPouch, deletePouch, stripAdd, stripMinus;
-    EditText IPWDate, IPWTime, IPWRollNo, IPWStripWt1,IPWStripWt2,IPWStripWt3,IPWStripWt4, IPWStripCount;
+    EditText IPWDate, IPWTime, IPWRollNo, IPWStripWt1, IPWStripWt2, IPWStripWt3, IPWStripWt4, IPWStripCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
         navigate9 = findViewById(R.id.Individualnextbtn);
         IPWRollNo = findViewById(R.id.IPWRollNo);
         String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
-        IPWRollNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 and ProdDate = CAST('"+timeStamp+"' as date)", 8));
+        IPWRollNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 and ProdDate = CAST('" + timeStamp + "' as date)", 8));
         MCID = findViewById(R.id.IPWmcid);
 
         String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
@@ -77,10 +77,16 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
         SKUID = findViewById(R.id.IPWskuid);
 
 
-        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 2);
-        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 3);
-        String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
+        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 2);
+        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 3);
+        String productVariant = "";
         SKUID.setText(productVariant);
+        if (productCode.length() == 0 || stockType.length() == 0) {
+            Toast.makeText(IndividualPouchWeight_Activity.this, "Running Machine Not Planned", Toast.LENGTH_LONG).show();
+        } else {
+            productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
+            SKUID.setText(productVariant);
+        }
         //add delete button recyclerview
         addPouch = findViewById(R.id.addPouch);
         deletePouch = findViewById(R.id.deletePouch);
@@ -93,7 +99,7 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
             public void onClick(View view) {
                 int newValue = Integer.parseInt(String.valueOf(IPWStripCount.getText())) + 1;
 //             Log.e("Here", String.valueOf(newValue));newValue
-                   IPWStripCount.setText(String.valueOf(newValue));
+                IPWStripCount.setText(String.valueOf(newValue));
             }
         });
         stripMinus.setOnClickListener(new View.OnClickListener() {
@@ -171,9 +177,9 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
                 intent.putExtra("IPWStripWt3", IPWStripWtValue3);
                 intent.putExtra("IPWStripWt4", IPWStripWtValue4);
                 intent.putExtra("IPWShift", IPWShift);
-                intent.putExtra("IPWStripCount",IPWStripCountValue);
-                intent.putExtra("ProductCode",productCode);
-                intent.putExtra("ProductStockType",stockType);
+                intent.putExtra("IPWStripCount", IPWStripCountValue);
+                intent.putExtra("ProductCode", productCode);
+                intent.putExtra("ProductStockType", stockType);
 
                 //get arraylist size
                 int sizeArrayList = Integer.parseInt(String.valueOf(pouchModalArrayList.size()));
@@ -199,7 +205,7 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
         DateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy", Locale.US);
         DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
-        String inputText = DatabaseCall.getData().FetchData("Select * from GetProdDate",1);
+        String inputText = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
         Date date = null;
         try {
             date = inputFormat.parse(inputText);

@@ -21,8 +21,8 @@ public class ConnectionHelper {
         uname = "admin";
         pass = "ds@123";
         //Local Connection
-//        ip = "192.168.88.103";
-//        database = "DS3";
+//        ip = "192.168.29.3";
+//        database = "DS12";
 //        port = "1433";
 //        uname = "Shubh";
 //        pass = "123456";

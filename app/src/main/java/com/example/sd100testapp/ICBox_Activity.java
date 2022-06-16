@@ -57,15 +57,23 @@ public class ICBox_Activity extends AppCompatActivity implements AdapterView.OnI
         String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
         MCID.setText(machineidvalue);
         String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
-        icbatchno.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 and ProdDate = CAST('"+timeStamp+"' as date) AND MachineSLN = '"+ machineidvalue +"'", 11));
-        Log.e("Here",icbatchno.toString()); 
-        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 2);
-        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 3);
-        String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
+        icbatchno.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select top (1)* from BatchExecution WHERE  MachineSLN = '" + machineidvalue + "' and Status = 1 order by Timestamp desc", 11));
+        Log.e("Here", icbatchno.toString());
+//        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 2);
+//        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 3);
+        String Product = DatabaseCall.getData().FetchData("select Product from ProductionPlan where Status =1  and ProdDate=dbo.getProdDateFunction(getdate()) and MachineSLN='"+machineidvalue+"'", 1);
+
+        String productVariant = "";
         SKUID.setText(productVariant);
-        icmin.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAIC ORDER BY ProdDate DESC", 7));
-        icstd.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAIC ORDER BY ProdDate DESC", 8));
-        icmax.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAIC ORDER BY ProdDate DESC", 9));
+        if (Product.length() == 0) {
+            Toast.makeText(ICBox_Activity.this, "Running Machine Not Planned", Toast.LENGTH_LONG).show();
+        } else {
+            productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("select Description from ProductVariant where( ProductCode+'-'+ProductStockType)= '"+Product+"'", 1);
+            SKUID.setText(productVariant);
+        }
+        icmin.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAIC where MachineSLN = '" + machineidvalue + "' ORDER BY Stamp DESC", 7));
+        icstd.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAIC where MachineSLN = '" + machineidvalue + "' ORDER BY Stamp DESC", 8));
+        icmax.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAIC where MachineSLN = '" + machineidvalue + "' ORDER BY Stamp DESC", 9));
 
 
         navigate8.setOnClickListener(new View.OnClickListener() {
@@ -110,8 +118,9 @@ public class ICBox_Activity extends AppCompatActivity implements AdapterView.OnI
                 intent.putExtra("icstd", icstdvalue);
                 intent.putExtra("icmax", icmaxvalue);
                 intent.putExtra("icshiftvalue", icshiftvalue);
-                intent.putExtra("productCode",productCode);
-                intent.putExtra("productStockType",stockType);
+                intent.putExtra("productCode", "productCode");
+                intent.putExtra("productStockType", "stockType");
+                intent.putExtra("product", "product");
                 startActivity(intent);
             }
         });
@@ -153,7 +162,6 @@ public class ICBox_Activity extends AppCompatActivity implements AdapterView.OnI
             this.icshiftvalue = parent.getItemAtPosition(pos).toString();
         } else if (parent.getId() == R.id.spinneric) {
             ArrayList<String> NewArr = new ArrayList<String>();
-
             try {
                 ConnectionHelper connectionHelper = new ConnectionHelper();
                 connect = connectionHelper.connectionclass();
@@ -162,7 +170,11 @@ public class ICBox_Activity extends AppCompatActivity implements AdapterView.OnI
                     Statement st = connect.createStatement();
                     ResultSet rs = st.executeQuery(query);
                     while (rs.next()) {
-                        NewArr.add(rs.getString(10));
+                        if (rs.getString(10) == null) {
+                            NewArr.add(String.valueOf(0));
+                        } else {
+                            NewArr.add(rs.getString(10));
+                        }
                     }
                 } else {
                     ConnectionResult = "Check Connection";
@@ -170,7 +182,9 @@ public class ICBox_Activity extends AppCompatActivity implements AdapterView.OnI
             } catch (Exception ex) {
                 Log.e("Here", ex.toString());
             }
-            Log.e("Here", String.valueOf(NewArr));
+            if (pos == NewArr.size()) {
+                NewArr.add("");
+            }
             iccountperstrip.setText(NewArr.get(pos));
             if (parent.getId() == R.id.spinneric) {
                 String text = parent.getItemAtPosition(pos).toString();

@@ -96,6 +96,9 @@ public class DatabaseCall {
             Log.e("Here", ex.toString());
         }
         Log.e("Here",Data2);
+        if(Data2.length()==0){
+            return "";
+        }
         return Data2;
     }
 

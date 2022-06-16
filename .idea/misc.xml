@@ -4,12 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/SD100TestApp/app/src/main/res/drawable/Logo_background.xml" value="0.24114583333333334" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/drawable/dashboardbg1.xml" value="0.174" />
         <entry key="..\:/SD100TestApp/app/src/main/res/drawable/textviewbg.xml" value="0.24114583333333334" />
-        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_dashboard1.xml" value="0.11041666666666666" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_dashboard1.xml" value="0.25" />
         <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_dashboard2.xml" value="0.225" />
         <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_icbox.xml" value="0.225" />
         <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_icsummary.xml" value="0.225" />
-        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_individual_pouch_weight.xml" value="0.25" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_individual_pouch_weight.xml" value="0.22" />
         <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_individual_pouch_weight_summary.xml" value="0.225" />
         <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_leak_test_summary.xml" value="0.225" />
         <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_leaktest.xml" value="0.225" />
@@ -18,7 +19,7 @@
         <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_mcbox.xml" value="0.225" />
         <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_mcsummary.xml" value="0.225" />
         <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_overview.xml" value="0.225" />
-        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_strip.xml" value="0.22153846153846155" />
+        <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_strip.xml" value="0.23541666666666666" />
         <entry key="..\:/SD100TestApp/app/src/main/res/layout/activity_summary.xml" value="0.225" />
         <entry key="..\:/SD100TestApp/app/src/main/res/layout/striplist_item.xml" value="0.225" />
         <entry key="..\:/SD100TestApp/app/src/main/res/layout/striplistsum_item.xml" value="0.11197916666666667" />

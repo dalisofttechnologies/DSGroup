@@ -1,6 +1,7 @@
 package com.example.sd100testapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -66,15 +67,27 @@ public class Strip_Activity extends AppCompatActivity implements AdapterView.OnI
         String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
         MCID.setText(machineidvalue);
         String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
-        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 2);
-        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '"+ machineidvalue +"'", 3);
-        String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
+//        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 2);
+//        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 3);
+        String Product = DatabaseCall.getData().FetchData("select Product from ProductionPlan where Status =1  and ProdDate=dbo.getProdDateFunction(getdate()) and MachineSLN='"+machineidvalue+"'", 1);
+        String productVariant = "";
         SKUID.setText(productVariant);
+        if (Product.length() == 0) {
+            Toast.makeText(Strip_Activity.this, "Running Machine Not Planned", Toast.LENGTH_LONG).show();
+            SharedPreferences pref = getApplication().getSharedPreferences("MyPref", 0);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putString("Abnormality", String.valueOf(1)); // Storing string
+            editor.apply();
+        } else {
+            productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("select Description from ProductVariant where( ProductCode+'-'+ProductStockType)= '"+Product+"'", 1);
+            SKUID.setText(productVariant);
+        }
+
         //   Select top (1)* from BatchExecution WHERE ProdDate = CAST('2022-03-04' as date) AND MachineSLN = '160724596' order by Timestamp desc
-        BatchNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select top (1)* from BatchExecution WHERE ProdDate = CAST('" + timeStamp + "' as date) AND MachineSLN = '"+ machineidvalue +"' order by Timestamp desc", 8));
-        WtRangeMin.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAStrip Where MachineSLN = '"+ machineidvalue +"' ORDER BY ProdDate DESC", 6));
-        WtRangeStd.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAStrip Where MachineSLN = '"+ machineidvalue +"' ORDER BY ProdDate DESC", 7));
-        WtRangeMax.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAStrip Where MachineSLN = '"+ machineidvalue +"' ORDER BY ProdDate DESC", 8));
+        BatchNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select top (1)* from BatchExecution WHERE Status = 1 AND MachineSLN = '" + machineidvalue + "' order by Timestamp desc", 8));
+        WtRangeMin.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAStrip Where MachineSLN = '" + machineidvalue + "' ORDER BY Stamp DESC", 6));
+        WtRangeStd.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAStrip Where MachineSLN = '" + machineidvalue + "' ORDER BY Stamp DESC", 7));
+        WtRangeMax.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAStrip Where MachineSLN = '" + machineidvalue + "' ORDER BY Stamp DESC", 8));
 
 
         navigate14.setOnClickListener(view -> {
@@ -134,8 +147,9 @@ public class Strip_Activity extends AppCompatActivity implements AdapterView.OnI
             intent.putExtra("WtRangeStdValue", WtRangeStdValue);
             intent.putExtra("WtRangeMaxValue", WtRangeMaxValue);
             intent.putExtra("StripShiftValue", stripshiftvalue);
-            intent.putExtra("ProductCode", productCode);
-            intent.putExtra("ProductStockType", stockType);
+            intent.putExtra("ProductCode", "productCode");
+            intent.putExtra("ProductStockType", "stockType");
+            intent.putExtra("Product",Product);
             startActivity(intent);
 
         });
@@ -187,8 +201,11 @@ public class Strip_Activity extends AppCompatActivity implements AdapterView.OnI
 
             }
             String[] countOfStrip = DatabaseCall.getData().FetchArray("Select * from ProductVariant", 11);
-            float count = Float.parseFloat(NewArr.get(pos)) / Float.parseFloat(countOfStrip[pos]);
-            CountPerStrip.setText(String.valueOf((int) count));
+            if (countOfStrip[pos] != null) {
+                float count = Float.parseFloat(NewArr.get(pos)) / Float.parseFloat(countOfStrip[pos]);
+                CountPerStrip.setText(String.valueOf((int) count));
+
+            }
 
             try {
                 ConnectionHelper connectionHelper = new ConnectionHelper();
