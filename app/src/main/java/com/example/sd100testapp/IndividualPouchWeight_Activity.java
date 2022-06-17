@@ -69,10 +69,10 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
         navigate9 = findViewById(R.id.Individualnextbtn);
         IPWRollNo = findViewById(R.id.IPWRollNo);
         String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
-        IPWRollNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 and ProdDate = CAST('" + timeStamp + "' as date)", 8));
+        String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
+        IPWRollNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select top (1)* from BatchExecution WHERE  MachineSLN = '\" + machineidvalue + \"' order by Timestamp desc", 8));
         MCID = findViewById(R.id.IPWmcid);
 
-        String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
         MCID.setText(machineidvalue);
         SKUID = findViewById(R.id.IPWskuid);
 
