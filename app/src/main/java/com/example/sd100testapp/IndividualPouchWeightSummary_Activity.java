@@ -66,10 +66,11 @@ public class IndividualPouchWeightSummary_Activity extends AppCompatActivity {
         MCIDSUM = findViewById(R.id.IPWmcidsum);
         SKUIDSUM = findViewById(R.id.IPWskuidsum);
         MCIDSUM.setText(com.example.sd100testapp.DataHolder.getInstance().getData2());
-        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 2);
-        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 3);
-        String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
-        SKUIDSUM.setText(productVariant);
+//        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 2);
+//        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 3);
+//        String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
+        String SKUID = getIntent().getStringExtra("SKUID");
+        SKUIDSUM.setText(SKUID);
 
         String IPWDate = getIntent().getStringExtra("IPWDate");
         String IPWShift = getIntent().getStringExtra("IPWShift");
@@ -83,6 +84,7 @@ public class IndividualPouchWeightSummary_Activity extends AppCompatActivity {
         String IPWStripCount = getIntent().getStringExtra("IPWStripCount");
         String ProductCode = getIntent().getStringExtra("ProductCode");
         String ProductStockType = getIntent().getStringExtra("ProductStockType");
+        String Product = getIntent().getStringExtra("Product");
 
         Bundle args = getIntent().getBundleExtra("BUNDLE");
         ArrayList<Object> object = (ArrayList<Object>) args.getSerializable("ARRAYLIST");
@@ -160,7 +162,7 @@ public class IndividualPouchWeightSummary_Activity extends AppCompatActivity {
                     if (connect != null) {
                         String datetime =  IPWDateValue.getText().toString()+" " + IPWTimeValue.getText().toString();
                         Log.e("Here",datetime);
-                        String sqlinsert = "Insert into QAIPW values ('" + IPWDateValue.getText().toString() + "','" + datetime + "','" + IPWRollNoValue.getText().toString() + "','" + IPWStripCountValue.getText().toString() + "','" + IPWStripWtValue1.getText().toString() + "','" + IPWStripWtValue2.getText().toString() + "','" + IPWStripWtValue3.getText().toString() + "','" + IPWStripWtValue4.getText().toString() + "'," + finalTest + ",'" + IPWShiftValue.getText().toString() + "','" + IPWInspectedBy.getText().toString() + "','" + IPWCheckedBy.getText().toString() + "','" + MachineIDValue +"','" + ProductCode +"','" + ProductStockType + "')";
+                        String sqlinsert = "Insert into QAIPW values ('" + IPWDateValue.getText().toString() + "','" + datetime + "','" + IPWRollNoValue.getText().toString() + "','" + IPWStripCountValue.getText().toString() + "','" + IPWStripWtValue1.getText().toString() + "','" + IPWStripWtValue2.getText().toString() + "','" + IPWStripWtValue3.getText().toString() + "','" + IPWStripWtValue4.getText().toString() + "'," + finalTest + ",'" + IPWShiftValue.getText().toString() + "','" + IPWInspectedBy.getText().toString() + "','" + IPWCheckedBy.getText().toString() + "','" + MachineIDValue + "','" + Product + "','" + Product + "')";
                         Statement st = connect.createStatement();
                         ResultSet rs = st.executeQuery(sqlinsert);
 

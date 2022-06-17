@@ -62,14 +62,16 @@ public class Leaktest_Activity extends AppCompatActivity implements AdapterView.
         String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
 
         String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
-        String productCode = DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 2);
-        String stockType = DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 3);
+//        String productCode = DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 2);
+//        String stockType = DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 3);
+        String Product = DatabaseCall.getData().FetchData("select Product from ProductionPlan where Status =1  and ProdDate=dbo.getProdDateFunction(getdate()) and MachineSLN='"+machineidvalue+"'", 1);
+
         String productVariant = "";
         SKUID.setText(productVariant);
-        if (productCode.length() == 0 || stockType.length() == 0) {
+        if (Product.length() == 0 ) {
             Toast.makeText(Leaktest_Activity.this, "Running Machine Not Planned", Toast.LENGTH_LONG).show();
         } else {
-            productVariant = DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
+            productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("select Description from ProductVariant where( ProductCode+'-'+ProductStockType)= '"+Product+"'", 1);
             SKUID.setText(productVariant);
         }
         MCID.setText("");
@@ -120,8 +122,11 @@ public class Leaktest_Activity extends AppCompatActivity implements AdapterView.
                 intent.putExtra("LeakTestLining", LeakTestLiningValue);
                 intent.putExtra("Spinner2", Spinner2);
                 intent.putExtra("LeakTestShift", LeakTestShift);
-                intent.putExtra("ProductCode", productCode);
-                intent.putExtra("ProductStockType", stockType);
+                intent.putExtra("ProductCode", "productCode");
+                intent.putExtra("ProductStockType", "stockType");
+                intent.putExtra("Product", Product);
+                intent.putExtra("SKUID", SKUID.getText());
+
 
                 startActivity(intent);
             }

@@ -84,7 +84,7 @@ public class Strip_Activity extends AppCompatActivity implements AdapterView.OnI
         }
 
         //   Select top (1)* from BatchExecution WHERE ProdDate = CAST('2022-03-04' as date) AND MachineSLN = '160724596' order by Timestamp desc
-        BatchNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select top (1)* from BatchExecution WHERE AND MachineSLN = '" + machineidvalue + "' order by Timestamp desc", 8));
+        BatchNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select top (1)* from BatchExecution WHERE MachineSLN = '" + machineidvalue + "' order by Timestamp desc", 8));
         WtRangeMin.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAStrip Where MachineSLN = '" + machineidvalue + "' ORDER BY Stamp DESC", 6));
         WtRangeStd.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAStrip Where MachineSLN = '" + machineidvalue + "' ORDER BY Stamp DESC", 7));
         WtRangeMax.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAStrip Where MachineSLN = '" + machineidvalue + "' ORDER BY Stamp DESC", 8));

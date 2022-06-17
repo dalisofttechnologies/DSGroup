@@ -61,10 +61,11 @@ public class LeakTestSummary_Activity extends AppCompatActivity {
         String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
         MCID.setText("");
         SKUID = findViewById(R.id.leaktestskuidsum);
-        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 2);
-        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 3);
-        String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
-        SKUID.setText(productVariant);
+//        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 2);
+//        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 3);
+//        String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
+        String SKUIDs = getIntent().getStringExtra("SKUID");
+        SKUID.setText(SKUIDs);
 
         String LeakTestDate = getIntent().getStringExtra("LeakTestDate");
         String LeakTestShift = getIntent().getStringExtra("LeakTestShift");
@@ -89,6 +90,7 @@ public class LeakTestSummary_Activity extends AppCompatActivity {
         String Spinner2 = getIntent().getStringExtra("Spinner2");
         String ProductCode = getIntent().getStringExtra("ProductCode");
         String ProductStockType = getIntent().getStringExtra("ProductStockType");
+        String Product = getIntent().getStringExtra("Product");
 
 
         LeakTestDateValue.setText(LeakTestDate);
@@ -140,7 +142,7 @@ public class LeakTestSummary_Activity extends AppCompatActivity {
                     connect = connectionHelper.connectionclass();
                     if (connect != null) {
                         String datetime = LeakTestDateValue.getText().toString() + " " + LeakTestTimeValue.getText().toString();
-                        String sqlinsert = "Insert into QALeakTest values ('" + LeakTestDateValue.getText().toString() + "','" + datetime + "','" + LeakTestTempValue.getText().toString() + "','" + LeakTestRhValue.getText().toString() + "','" + LeakTestStripWt1Value.getText().toString() + "','" + LeakTestStripWt2Value.getText().toString() + "','" + LeakTestStripWt3Value.getText().toString() + "','" + LeakTestStripWt4Value.getText().toString() + "','" + LeakTestNoEmptyValue.getText().toString() + "','" + LeakTestSampleSizeValue.getText().toString() + "','" + LeakTestNoLeakValue.getText().toString() + "','" + LeakTestShiftValue.getText().toString() + "','" + Spinner2 + "','" + LeakTestTopSeal + "','" + LeakTestSideSeal + "','" + LeakTestDelamination + "','" + LeakTestOffRegistration + "','" + LeakTestLining + "','" + LeakTestWrinkle + "','" + LeakTestInspectedBy.getText().toString() + "','" + LeakTestCheckedBy.getText().toString() +"','" + ProductCode +"','" + ProductStockType + "')";
+                        String sqlinsert = "Insert into QALeakTest values ('" + LeakTestDateValue.getText().toString() + "','" + datetime + "','" + LeakTestTempValue.getText().toString() + "','" + LeakTestRhValue.getText().toString() + "','" + LeakTestStripWt1Value.getText().toString() + "','" + LeakTestStripWt2Value.getText().toString() + "','" + LeakTestStripWt3Value.getText().toString() + "','" + LeakTestStripWt4Value.getText().toString() + "','" + LeakTestNoEmptyValue.getText().toString() + "','" + LeakTestSampleSizeValue.getText().toString() + "','" + LeakTestNoLeakValue.getText().toString() + "','" + LeakTestShiftValue.getText().toString() + "','" + Spinner2 + "','" + LeakTestTopSeal + "','" + LeakTestSideSeal + "','" + LeakTestDelamination + "','" + LeakTestOffRegistration + "','" + LeakTestLining + "','" + LeakTestWrinkle + "','" + LeakTestInspectedBy.getText().toString() + "','" + LeakTestCheckedBy.getText().toString() +"','" + Product +"','" + Product + "')";
                         Statement st = connect.createStatement();
                         ResultSet rs = st.executeQuery(sqlinsert);
 

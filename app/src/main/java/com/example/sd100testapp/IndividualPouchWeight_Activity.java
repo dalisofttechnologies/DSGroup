@@ -77,14 +77,16 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
         SKUID = findViewById(R.id.IPWskuid);
 
 
-        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 2);
-        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 3);
+//        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 2);
+//        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 3);
+        String Product = DatabaseCall.getData().FetchData("select Product from ProductionPlan where Status =1  and ProdDate=dbo.getProdDateFunction(getdate()) and MachineSLN='" + machineidvalue + "'", 1);
+
         String productVariant = "";
         SKUID.setText(productVariant);
-        if (productCode.length() == 0 || stockType.length() == 0) {
+        if (Product.length() == 0) {
             Toast.makeText(IndividualPouchWeight_Activity.this, "Running Machine Not Planned", Toast.LENGTH_LONG).show();
         } else {
-            productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
+            productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("select Description from ProductVariant where( ProductCode+'-'+ProductStockType)= '" + Product + "'", 1);
             SKUID.setText(productVariant);
         }
         //add delete button recyclerview
@@ -178,8 +180,10 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
                 intent.putExtra("IPWStripWt4", IPWStripWtValue4);
                 intent.putExtra("IPWShift", IPWShift);
                 intent.putExtra("IPWStripCount", IPWStripCountValue);
-                intent.putExtra("ProductCode", productCode);
-                intent.putExtra("ProductStockType", stockType);
+                intent.putExtra("ProductCode", "productCode");
+                intent.putExtra("ProductStockType", "stockType");
+                intent.putExtra("Product", Product);
+                intent.putExtra("SKUID", SKUID.getText());
 
                 //get arraylist size
                 int sizeArrayList = Integer.parseInt(String.valueOf(pouchModalArrayList.size()));

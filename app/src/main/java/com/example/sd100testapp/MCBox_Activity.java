@@ -72,7 +72,7 @@ public class MCBox_Activity extends AppCompatActivity implements AdapterView.OnI
             productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("select Description from ProductVariant where( ProductCode+'-'+ProductStockType)= '"+Product+"'", 1);
             SKUID.setText(productVariant);
         }
-        MCBatchNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select top (1)* from BatchExecution WHERE  MachineSLN = '" + machineidvalue + "' and order by Timestamp desc", 11));
+        MCBatchNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select top (1)* from BatchExecution WHERE  MachineSLN = '" + machineidvalue + "' order by Timestamp desc", 11));
         WtRangeMin.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC where MachineSLN = '" + machineidvalue + "'  ORDER BY Stamp DESC", 7));
         WtRangeStd.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC where MachineSLN = '"+machineidvalue+"'  ORDER BY Stamp DESC", 8));
         WtRangeMax.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select TOP 1 * from QAMC where MachineSLN = '"+machineidvalue+"'  ORDER BY Stamp DESC", 9));
