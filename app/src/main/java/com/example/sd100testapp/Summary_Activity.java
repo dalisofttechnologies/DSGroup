@@ -45,6 +45,7 @@ public class Summary_Activity extends AppCompatActivity {
         String ProductCode = getIntent().getStringExtra("ProductCode");
         String ProductStockType = getIntent().getStringExtra("ProductStockType");
         String Product = getIntent().getStringExtra("Product");
+        String SKUID = getIntent().getStringExtra("SKUID");
         Boolean SilverLumps = getIntent().getBooleanExtra("SilverLumps", false);
         Boolean MfgAddress = getIntent().getBooleanExtra("MfgAddress", false);
         Boolean PouchSize = getIntent().getBooleanExtra("PouchSize", false);
@@ -101,12 +102,12 @@ public class Summary_Activity extends AppCompatActivity {
         ShiftValue.setText(Shift);
         StripInspectedSum.setText(DataHolder.getInstance().getData());
         MCIDSUM.setText(DataHolder.getInstance().getData2());
-        String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
-        String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
-        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 2);
-        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 3);
-        String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
-        SKUIDSUM.setText(productVariant);
+//        String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
+//        String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
+//        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 2);
+//        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1 AND CONVERT(date, ProdDate) = '" + timeStamp + "' AND MachineSLN = '" + machineidvalue + "'", 3);
+//        String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
+        SKUIDSUM.setText(SKUID);
         navigate13 = findViewById(R.id.stripsummarynextbtn);
 
         navigate13.setOnClickListener(new View.OnClickListener() {

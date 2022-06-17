@@ -49,6 +49,7 @@ public class ICSummary_Activity extends AppCompatActivity {
         String ProductCode = getIntent().getStringExtra("productCode");
         String productStockType = getIntent().getStringExtra("productStockType");
         String product = getIntent().getStringExtra("product");
+        String SKUIDSUM = getIntent().getStringExtra("SKUID");
         Boolean icmfgaddress = getIntent().getBooleanExtra("icmfgaddress", false);
         Boolean ictaping = getIntent().getBooleanExtra("ictaping", false);
         Boolean ictextmatter = getIntent().getBooleanExtra("ictextmatter", false);
@@ -87,10 +88,10 @@ public class ICSummary_Activity extends AppCompatActivity {
         icinspectedsum.setText(com.example.sd100testapp.DataHolder.getInstance().getData());
         String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
         MCID.setText(machineidvalue);
-        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 2);
-        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 3);
-        String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
-        SKUID.setText(productVariant);
+//        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 2);
+//        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 3);
+//        String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
+        SKUID.setText(SKUIDSUM);
         WtRangeMinValue.setText(WtRangeMin);
         WtRangeStdValue.setText(WtRangeStd);
         WtRangeMaxValue.setText(WtRangeMax);

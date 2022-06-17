@@ -45,6 +45,7 @@ public class MCSummary_Activity extends AppCompatActivity {
         String ProductCode = getIntent().getStringExtra("ProductCode");
         String ProductStockType = getIntent().getStringExtra("ProductStockType");
         String Product = getIntent().getStringExtra("Product");
+        String SKUID = getIntent().getStringExtra("SKUID");
         Boolean MCMfgAddress = getIntent().getBooleanExtra("MCMfgAddress", false);
         Boolean MCCutting = getIntent().getBooleanExtra("MCCutting", false);
         Boolean MCPerforation = getIntent().getBooleanExtra("MCPerforation", false);
@@ -76,10 +77,10 @@ public class MCSummary_Activity extends AppCompatActivity {
         SKUIDSUM = findViewById(R.id.mcboxskuid);
         MCIDSUM = findViewById(R.id.mcboxmcid);
         MCIDSUM.setText(com.example.sd100testapp.DataHolder.getInstance().getData2());
-        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 2);
-        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 3);
-        String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
-        SKUIDSUM.setText(productVariant);
+//        String productCode = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 2);
+//        String stockType = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from BatchExecution WHERE Status = 1", 3);
+//        String productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("Select * from ProductVariant WHERE ProductCode ='" + productCode + "' AND ProductStockType ='" + stockType + "'", 6);
+        SKUIDSUM.setText(SKUID);
 
         MCBatchNoValue.setText(MCBatchNo);
         MCICPerMCValue.setText(MCICPerMC);
