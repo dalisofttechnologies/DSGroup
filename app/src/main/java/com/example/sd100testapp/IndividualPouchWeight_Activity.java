@@ -3,6 +3,7 @@ package com.example.sd100testapp;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -44,6 +45,7 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
     ImageView addPouch, deletePouch, stripAdd, stripMinus;
     EditText IPWDate, IPWTime, IPWRollNo, IPWStripWt1, IPWStripWt2, IPWStripWt3, IPWStripWt4, IPWStripCount;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +72,7 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
         IPWRollNo = findViewById(R.id.IPWRollNo);
         String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
         String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
-        IPWRollNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select top (1)* from BatchExecution WHERE  MachineSLN = '\" + machineidvalue + \"' order by Timestamp desc", 8));
+        IPWRollNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select top (1)* from BatchExecution WHERE  MachineSLN = '" + machineidvalue + "' order by Timestamp desc", 8));
         MCID = findViewById(R.id.IPWmcid);
 
         MCID.setText(machineidvalue);
@@ -83,10 +85,16 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
 
         String productVariant = "";
         SKUID.setText(productVariant);
+
+        Integer pouchMinWt = 0;
+        Integer pouchMaxWt = 0;
+
         if (Product.length() == 0) {
             Toast.makeText(IndividualPouchWeight_Activity.this, "Running Machine Not Planned", Toast.LENGTH_LONG).show();
         } else {
             productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("select Description from ProductVariant where( ProductCode+'-'+ProductStockType)= '" + Product + "'", 1);
+            pouchMinWt = Integer.valueOf(DatabaseCall.getData().FetchData("select PouchMinWt from ProductVariant where( ProductCode+'-'+ProductStockType)= '" + Product + "'", 1));
+            pouchMaxWt = Integer.valueOf(DatabaseCall.getData().FetchData("select PouchMaxWt from ProductVariant where( ProductCode+'-'+ProductStockType)= '" + Product + "'", 1));
             SKUID.setText(productVariant);
         }
         //add delete button recyclerview
@@ -151,6 +159,8 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
         getData2();
 
 
+        Integer finalPouchMinWt = pouchMinWt;
+        Integer finalPouchMaxWt = pouchMaxWt;
         navigate9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -190,17 +200,36 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
                 //clear arraylist
                 pouchModalArrayList.clear();
 
+                Boolean Indicator = true;
+
                 //put all edittext recycleview data in arraylist
                 for (int i = 0; i < Integer.parseInt(String.valueOf(sizeArrayList)); i++) {
                     String finalEntry = ((TextView) recyclerView.findViewHolderForAdapterPosition(i).itemView.findViewById(R.id.pouchWtEntry)).getText().toString();
 //                    Log.e("Here", finalEntry);
 
+                    try {
+                        if (!finalEntry.trim().equals("")) {
+                            if (Integer.parseInt(finalEntry) < finalPouchMinWt || Integer.parseInt(finalEntry) > finalPouchMaxWt) {
+                                Log.e("Here", "lol");
+                                Indicator = false;
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.e("Here", e.toString());
+                    }
+
+
                     PouchModal pouchModal = new PouchModal("Pouch wt " + i, finalEntry);
                     pouchModalArrayList.add(pouchModal);
+
                 }
                 Bundle args = new Bundle();
                 args.putSerializable("ARRAYLIST", (Serializable) pouchModalArrayList);
                 intent.putExtra("BUNDLE", args);
+                if (!Indicator) {
+                    Toast.makeText(IndividualPouchWeight_Activity.this, "Out of Range!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 startActivity(intent);
             }
         });
