@@ -105,7 +105,7 @@ public class MCSummary_Activity extends AppCompatActivity {
             public void onClick(View view) {
 
                 //set Time Automatically
-                String currentTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault()).format(new Date());
+                String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
                 //IcBox Data insert in SQL server
                 try {

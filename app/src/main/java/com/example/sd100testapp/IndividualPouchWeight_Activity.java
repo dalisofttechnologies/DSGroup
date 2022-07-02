@@ -45,6 +45,7 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
     ImageView addPouch, deletePouch, stripAdd, stripMinus;
     EditText IPWDate, IPWTime, IPWRollNo, IPWStripWt1, IPWStripWt2, IPWStripWt3, IPWStripWt4, IPWStripCount;
 
+    int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,15 +87,15 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
         String productVariant = "";
         SKUID.setText(productVariant);
 
-        Integer pouchMinWt = 0;
-        Integer pouchMaxWt = 0;
+        double pouchMinWt = 0;
+        double pouchMaxWt = 0;
 
         if (Product.length() == 0) {
             Toast.makeText(IndividualPouchWeight_Activity.this, "Running Machine Not Planned", Toast.LENGTH_LONG).show();
         } else {
             productVariant = com.example.sd100testapp.DatabaseCall.getData().FetchData("select Description from ProductVariant where( ProductCode+'-'+ProductStockType)= '" + Product + "'", 1);
-            pouchMinWt = Integer.valueOf(DatabaseCall.getData().FetchData("select PouchMinWt from ProductVariant where( ProductCode+'-'+ProductStockType)= '" + Product + "'", 1));
-            pouchMaxWt = Integer.valueOf(DatabaseCall.getData().FetchData("select PouchMaxWt from ProductVariant where( ProductCode+'-'+ProductStockType)= '" + Product + "'", 1));
+            pouchMinWt = Float.parseFloat(DatabaseCall.getData().FetchData("select PouchMinWt from ProductVariant where( ProductCode+'-'+ProductStockType)= '" + Product + "'", 1));
+            pouchMaxWt = Float.parseFloat(DatabaseCall.getData().FetchData("select PouchMaxWt from ProductVariant where( ProductCode+'-'+ProductStockType)= '" + Product + "'", 1));
             SKUID.setText(productVariant);
         }
         //add delete button recyclerview
@@ -159,8 +160,8 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
         getData2();
 
 
-        Integer finalPouchMinWt = pouchMinWt;
-        Integer finalPouchMaxWt = pouchMaxWt;
+        double finalPouchMinWt = pouchMinWt;
+        double finalPouchMaxWt = pouchMaxWt;
         navigate9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -209,8 +210,7 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
 
                     try {
                         if (!finalEntry.trim().equals("")) {
-                            if (Integer.parseInt(finalEntry) < finalPouchMinWt || Integer.parseInt(finalEntry) > finalPouchMaxWt) {
-                                Log.e("Here", "lol");
+                            if (Float.parseFloat(finalEntry) < finalPouchMinWt || Float.parseFloat(finalEntry) > finalPouchMaxWt) {
                                 Indicator = false;
                             }
                         }
@@ -226,10 +226,14 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
                 Bundle args = new Bundle();
                 args.putSerializable("ARRAYLIST", (Serializable) pouchModalArrayList);
                 intent.putExtra("BUNDLE", args);
-                if (!Indicator) {
-                    Toast.makeText(IndividualPouchWeight_Activity.this, "Out of Range!", Toast.LENGTH_SHORT).show();
-                    return;
+                if (counter == 0) {
+                    if (!Indicator) {
+                        Toast.makeText(IndividualPouchWeight_Activity.this, "Out of Range!", Toast.LENGTH_SHORT).show();
+                        counter++;
+                        return;
+                    }
                 }
+
                 startActivity(intent);
             }
         });

@@ -102,7 +102,7 @@ public class ICSummary_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String currentTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault()).format(new Date());
+                String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
 
 //                //IcBox Data insert in SQL server

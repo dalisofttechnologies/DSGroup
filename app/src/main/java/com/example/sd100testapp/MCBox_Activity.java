@@ -104,7 +104,7 @@ public class MCBox_Activity extends AppCompatActivity implements AdapterView.OnI
                 if (k == 0) {
                     if (Float.parseFloat(MCGrossWtValue) <= (Float.parseFloat(WtRangeMinValue) - 0.1) || Float.parseFloat(MCGrossWtValue) >= (Float.parseFloat(WtRangeMaxValue) + 0.1)) {
                         MCGrossWt.setError("Weight out of Range!");
-                        k++;
+                            k++;
                         return;
                     }
                 }
