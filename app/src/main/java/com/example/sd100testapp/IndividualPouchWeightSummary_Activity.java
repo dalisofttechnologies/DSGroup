@@ -169,7 +169,7 @@ public class IndividualPouchWeightSummary_Activity extends AppCompatActivity {
                     if (connect != null) {
                         String datetime = IPWDateValue.getText().toString() + " " + IPWTimeValue.getText().toString();
                         Log.e("Here", datetime);
-                        String sqlinsert = "Insert into QAIPW values ('" + IPWDateValue.getText().toString() + "','" + datetime + "','" + IPWRollNoValue.getText().toString() + "','" + IPWStripCountValue.getText().toString() + "','" + IPWStripWtValue1.getText().toString() + "','" + IPWStripWtValue2.getText().toString() + "','" + IPWStripWtValue3.getText().toString() + "','" + IPWStripWtValue4.getText().toString() + "'," + finalTest + ",'" + IPWShiftValue.getText().toString() + "','" + IPWInspectedBy.getText().toString() + "','" + IPWCheckedBy.getText().toString() + "','" + MachineIDValue + "','" + Product + "','" + Product + "')";
+                        String sqlinsert = "Insert into QAIPW values ('" + IPWDateValue.getText().toString() + "','" + datetime + "','" + IPWRollNoValue.getText().toString() + "','" + IPWStripCountValue.getText().toString() + "','" + IPWStripWtValue1.getText().toString() + "','" + IPWStripWtValue2.getText().toString() + "','" + IPWStripWtValue3.getText().toString() + "','" + IPWStripWtValue4.getText().toString() + "'," + finalTest + ",'" + IPWShiftValue.getText().toString() + "','" + IPWInspectedBy.getText().toString() + "','" + IPWCheckedBy.getText().toString() + "','" + MachineIDValue + "','" + Product + "','" + Product + "','" + IPWLaminateVendor + "','" + IPWMachineSpeed + "')";
                         Statement st = connect.createStatement();
                         ResultSet rs = st.executeQuery(sqlinsert);
 
