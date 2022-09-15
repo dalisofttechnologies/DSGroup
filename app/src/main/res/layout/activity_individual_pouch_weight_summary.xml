@@ -121,6 +121,44 @@
             android:padding="10dp"
             android:text=""
             android:textColor="@color/black" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Laminate Vendor"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/IPWLaminateVendorSum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#D3D3D3"
+            android:enabled="false"
+            android:inputType="none"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:text=""
+            android:textColor="@color/black" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Machine Speed"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/IPWMachineSpeedSum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#D3D3D3"
+            android:enabled="false"
+            android:inputType="none"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:text=""
+            android:textColor="@color/black" />
 
         <TextView
             android:layout_width="match_parent"

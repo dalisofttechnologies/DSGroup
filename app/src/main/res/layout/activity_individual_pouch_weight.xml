@@ -140,6 +140,40 @@
             android:inputType="textPersonName"
             android:minHeight="48dp"
             android:text="" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Laminate Vendor"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/IPWLaminateVendor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="your hint here"
+            android:ems="10"
+            android:hint="10"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:text="" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Machine Speed"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/IPWMachineSpeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="your hint here"
+            android:ems="10"
+            android:hint="10"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:text="" />
 
         <TextView
             android:layout_width="match_parent"

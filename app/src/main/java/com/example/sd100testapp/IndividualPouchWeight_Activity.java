@@ -43,7 +43,7 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
     TextView MCID, SKUID;
     String IPWShift = "";
     ImageView addPouch, deletePouch, stripAdd, stripMinus;
-    EditText IPWDate, IPWTime, IPWRollNo, IPWStripWt1, IPWStripWt2, IPWStripWt3, IPWStripWt4, IPWStripCount;
+    EditText IPWDate, IPWTime, IPWRollNo, IPWStripWt1, IPWStripWt2, IPWStripWt3, IPWStripWt4, IPWStripCount, IPWLaminateVendor, IPWMachineSpeed;
 
     int counter = 0;
 
@@ -71,6 +71,10 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
         IPWStripWt4 = findViewById(R.id.IPWStripWt4);
         navigate9 = findViewById(R.id.Individualnextbtn);
         IPWRollNo = findViewById(R.id.IPWRollNo);
+        IPWLaminateVendor = findViewById(R.id.IPWLaminateVendor);
+        IPWMachineSpeed = findViewById(R.id.IPWMachineSpeed);
+
+        // ADDING DATABASE INFO
         String timeStamp = DatabaseCall.getData().FetchData("Select * from GetProdDate", 1);
         String machineidvalue = com.example.sd100testapp.DataHolder.getInstance().getData2();
         IPWRollNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select top (1)* from BatchExecution WHERE  MachineSLN = '" + machineidvalue + "' order by Timestamp desc", 8));
@@ -174,6 +178,9 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
                 String IPWStripWtValue3 = IPWStripWt3.getText().toString();
                 String IPWStripWtValue4 = IPWStripWt4.getText().toString();
                 String IPWStripCountValue = IPWStripCount.getText().toString();
+                String IPWLaminateVendorValue = IPWLaminateVendor.getText().toString();
+                String IPWMachineSpeedValue = IPWMachineSpeed.getText().toString();
+
 
                 if (IPWRollNoValue.matches("") || IPWStripWtValue1.matches("")) {
                     Toast.makeText(getApplicationContext(), "Please fill all entries", Toast.LENGTH_SHORT).show();
@@ -185,6 +192,8 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
                 intent.putExtra("IPWDate", IPWDateValue);
                 intent.putExtra("IPWTime", IPWTimeValue);
                 intent.putExtra("IPWRollNo", IPWRollNoValue);
+                intent.putExtra("IPWLaminateVendor", IPWLaminateVendorValue);
+                intent.putExtra("IPWMachineSpeed", IPWMachineSpeedValue);
                 intent.putExtra("IPWStripWt1", IPWStripWtValue1);
                 intent.putExtra("IPWStripWt2", IPWStripWtValue2);
                 intent.putExtra("IPWStripWt3", IPWStripWtValue3);

@@ -32,7 +32,8 @@ public class IndividualPouchWeightSummary_Activity extends AppCompatActivity {
 
     TextView IPWShiftValue, MCIDSUM, SKUIDSUM;
     Button IndividualnextbtnSum;
-    EditText IPWDateValue, IPWTimeValue, IPWRollNoValue, IPWStripWtValue1, IPWStripWtValue2, IPWStripWtValue3, IPWStripWtValue4, IPWInspectedBy, IPWCheckedBy, IPWApprovedBy, IPWStripCountValue;
+    EditText IPWDateValue, IPWTimeValue, IPWRollNoValue, IPWStripWtValue1, IPWStripWtValue2, IPWStripWtValue3, IPWStripWtValue4, IPWInspectedBy, IPWCheckedBy, IPWApprovedBy, IPWStripCountValue, IPWLaminateVendorValue,
+            IPWMachineSpeedValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,8 @@ public class IndividualPouchWeightSummary_Activity extends AppCompatActivity {
         IPWShiftValue = findViewById(R.id.IPWShiftSum);
         IPWTimeValue = findViewById(R.id.IPWTimeSum);
         IPWRollNoValue = findViewById(R.id.IPWRollNoSum);
+        IPWLaminateVendorValue = findViewById(R.id.IPWLaminateVendorSum);
+        IPWMachineSpeedValue = findViewById(R.id.IPWMachineSpeedSum);
         IPWStripWtValue1 = findViewById(R.id.IPWStripWtSum1);
         IPWStripWtValue2 = findViewById(R.id.IPWStripWtSum2);
         IPWStripWtValue3 = findViewById(R.id.IPWStripWtSum3);
@@ -76,6 +79,8 @@ public class IndividualPouchWeightSummary_Activity extends AppCompatActivity {
         String IPWShift = getIntent().getStringExtra("IPWShift");
         String IPWTime = getIntent().getStringExtra("IPWTime");
         String IPWRollNo = getIntent().getStringExtra("IPWRollNo");
+        String IPWLaminateVendor = getIntent().getStringExtra("IPWLaminateVendor");
+        String IPWMachineSpeed = getIntent().getStringExtra("IPWMachineSpeed");
         String IPWStripWt1 = getIntent().getStringExtra("IPWStripWt1");
         String IPWStripWt2 = getIntent().getStringExtra("IPWStripWt2");
         String IPWStripWt3 = getIntent().getStringExtra("IPWStripWt3");
@@ -96,6 +101,8 @@ public class IndividualPouchWeightSummary_Activity extends AppCompatActivity {
         IPWShiftValue.setText(IPWShift);
         IPWTimeValue.setText(IPWTime);
         IPWRollNoValue.setText(IPWRollNo);
+        IPWLaminateVendorValue.setText(IPWLaminateVendor);
+        IPWMachineSpeedValue.setText(IPWMachineSpeed);
         IPWStripWtValue1.setText(IPWStripWt1);
         IPWStripWtValue2.setText(IPWStripWt2);
         IPWStripWtValue3.setText(IPWStripWt3);
@@ -160,8 +167,8 @@ public class IndividualPouchWeightSummary_Activity extends AppCompatActivity {
                     ConnectionHelper connectionHelper = new ConnectionHelper();
                     connect = connectionHelper.connectionclass();
                     if (connect != null) {
-                        String datetime =  IPWDateValue.getText().toString()+" " + IPWTimeValue.getText().toString();
-                        Log.e("Here",datetime);
+                        String datetime = IPWDateValue.getText().toString() + " " + IPWTimeValue.getText().toString();
+                        Log.e("Here", datetime);
                         String sqlinsert = "Insert into QAIPW values ('" + IPWDateValue.getText().toString() + "','" + datetime + "','" + IPWRollNoValue.getText().toString() + "','" + IPWStripCountValue.getText().toString() + "','" + IPWStripWtValue1.getText().toString() + "','" + IPWStripWtValue2.getText().toString() + "','" + IPWStripWtValue3.getText().toString() + "','" + IPWStripWtValue4.getText().toString() + "'," + finalTest + ",'" + IPWShiftValue.getText().toString() + "','" + IPWInspectedBy.getText().toString() + "','" + IPWCheckedBy.getText().toString() + "','" + MachineIDValue + "','" + Product + "','" + Product + "')";
                         Statement st = connect.createStatement();
                         ResultSet rs = st.executeQuery(sqlinsert);
