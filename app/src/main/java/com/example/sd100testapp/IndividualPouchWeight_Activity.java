@@ -80,7 +80,7 @@ public class IndividualPouchWeight_Activity extends AppCompatActivity implements
         IPWRollNo.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("Select top (1)* from BatchExecution WHERE  MachineSLN = '" + machineidvalue + "' order by Timestamp desc", 8));
         String Batchno = IPWRollNo.getText().toString();
         IPWLaminateVendor.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("SELECT TOP (1)* FROM [BatchExecution] where MachineSLN='" + machineidvalue + "' and SachetBatchNo ='" + Batchno + "' order by Timestamp desc", 27));
-        IPWMachineSpeed.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("SELECT TOP (1)* FROM [BatchExecution] where MachineSLN='" + machineidvalue + "' and SachetBatchNo ='" + Batchno + "' order by Timestamp desc", 27));
+        IPWMachineSpeed.setText(com.example.sd100testapp.DatabaseCall.getData().FetchData("SELECT TOP (1)* FROM [BatchExecution] where MachineSLN='" + machineidvalue + "' and SachetBatchNo ='" + Batchno + "' order by Timestamp desc", 28));
 
         MCID = findViewById(R.id.IPWmcid);
         MCID.setText(machineidvalue);
